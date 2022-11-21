@@ -1,0 +1,502 @@
+------- EXP - 1.1 --------
+
+Create table student(roll_no number(10), name varchar(20), branch varchar(10) );
+alter table student add age varchar(10);
+INSERT into student values(1,'Aditya','CSE',20);
+INSERT into student values(2,'Rohan','AIML',21);
+INSERT into student values(3,'Mrinal','BCS',22);
+INSERT into student values(4,'Harsh','CSE',19);
+
+select * from student;
+
+alter table student drop column age;
+
+select * from student;
+
+update student set branch = 'mba' where roll_no = '3';
+
+select * from student;
+
+select * from student where name = 'Rohan';
+
+delete from student where name = 'Rohan';
+
+select * from student;
+
+
+------- EXP - 1.2 -----------
+
+CREATE TABLE STUDENT(
+SID  numeric(10),
+Sname varchar(50),
+course varchar(50),
+fee numeric(20));
+
+select * from STUDENT;
+
+insert into STUDENT values(1,'rohan','java',1233);
+insert into STUDENT values(2,',aditya','python',3422);
+insert into STUDENT values(3,'ruhela','network',6868);
+insert into STUDENT values(4,'mrinal','java',3453);
+insert into STUDENT values(5,'barnwal','english',1987);
+insert into STUDENT values(6,'harsh','dbms',5498);
+insert into STUDENT values(7,'sameer','java',7833);
+insert into STUDENT values(8,'agarwal','java',1233);
+insert into STUDENT values(9,'yash','python',2323);
+insert into STUDENT values(10,'vasu','network',1233);
+
+describe STUDENT;  
+
+Select * from STUDENT;
+
+SELECT SID,course from student;
+
+select * from student where fee=1987;
+
+select SID,Sname AS "STUDENT", COURSE from STUDENT;
+
+SELECT SID,Sname,fee from STUDENT where fee between 1500 and 3000;
+
+select * from student where COURSE ='java' or course='dbms';
+
+SELECT * FROM STUDENT where COURSE in ('java','dbms');
+
+SELECT * FROM STUDENT where COURSE not in ('java','dbms');
+
+SELECT sum(fee) FROM STUDENT ;
+
+SELECT min(fee) FROM STUDENT ;
+
+SELECT max(fee) FROM STUDENT ;
+
+SELECT avg(fee) FROM STUDENT ;
+
+SELECT  count(*)FROM STUDENT ;
+
+SELECT * FROM STUDENT order by fee;
+
+SELECT * FROM STUDENT order by fee desc;
+
+SELECT * FROM STUDENT order by COURSE,fee desc;
+
+SELECT course,count(SID)FROM STUDENT group by course;
+
+SELECT Sname FROM STUDENT where Sname like'a%';
+
+SELECT Sname FROM STUDENT where Sname like'__';
+
+SELECT course,count( SID) FROM STUDENT group by course order by count(SID)desc;
+
+SELECT course,count( SID) FROM STUDENT group by course having count(SID)>2;
+
+--------- EXP - 1.3 -----------
+
+DECLARE
+area number(6, 2);
+r number(5);
+pi CONSTANT number(3, 2):=3.14;
+BEGIN
+r:=6;
+area:=pi*r*r;
+dbms_output.put_line ('area = ' || area);
+End;
+
+DECLARE
+r number;
+BEGIN
+r:=:enter_radius;
+dbms_output.put_line('Area of Circle is ' || 3.14*r*r);
+END;
+
+DECLARE
+area number(6, 2);
+perimeter number(6,2);
+len number(5);
+width number(5);
+BEGIN
+len:=5;
+width:=6;
+area:= len*width;
+perimeter:= 2*(len+width);
+dbms_output.put_line ('area of rectangle = ' || area);
+dbms_output.put_line ('perimeter of rectangle = ' || perimeter);
+END;
+
+DECLARE
+n1 number(10);
+n2 number(10);
+total number(10);
+BEGIN
+n1:=123456;
+total:=0;
+while n1 <> 0 loop
+  n2:= mod(n1,10);
+  total:= total+n2;
+  n1:= Trunc(n1/10);
+End loop;
+dbms_output.put_line('sum of all digits are = ' || total);
+END;
+
+DECLARE
+n1 number(10);
+n2 number(10);
+n3 number(10);
+BEGIN
+n1 := 10;
+n2 := 40;
+dbms_output.put_line('before swapping');
+dbms_output.put_line('n1 = ' || n1 || ' , n2 = ' || n2);
+n3 := n1;
+n1 := n2;
+n2 := n3;
+dbms_output.put_line('before swapping');
+dbms_output.put_line('n1 = ' || n1 || ' , n2 = ' || n2);
+END;
+
+-------- EXP 2.1 --------
+
+--GREATEST OF THREE NUMBERS
+declare 
+  a number;
+  b number; 
+  c number;
+begin
+  a:=:enter_a;
+  b:=:enter_b;
+  c:=:enter_c;
+
+  if a>b then
+    if a>c then
+      dbms_output.put_line(a ||' is greatest among three');
+    else
+      dbms_output.put_line(c ||' is greatest among three');
+    end if;
+  else
+    if b>c then
+      dbms_output.put_line(b ||' is greatest among three');
+    else
+      dbms_output.put_line(c ||' is greatest among three');
+    end if;
+  end if;
+end;
+
+--ODD OR EVEN
+declare
+  a number;
+begin
+  a:=:enter_number;
+  if mod(a,2)=0 then
+    dbms_output.put_line('number is even');
+  else
+    dbms_output.put_line('number is odd');
+  end if;
+end;
+
+------ EXP - 2.2 ---------
+
+--SUM OF DIGIT OF NUMBER
+declare
+  a number;
+  temp1 number;
+  temp2 number;
+  total number;
+begin
+  a:=:enter_number;
+  temp1 := a;
+  total := 0;
+
+  while a>0 
+  loop 
+    temp2 := mod(a,10);
+    total := total+temp2;
+    a := trunc(a/10);
+  end loop;
+  
+  dbms_output.put_line('sum of digits are: ' || total);
+end;
+
+--FACTORIAL OF A NUMBER
+declare
+  num number;
+  temp number;
+  fact number;
+begin
+  num:=:enter_number;
+  fact:=1;
+  temp:=num;
+  
+  loop 
+    fact := fact*temp;
+    temp := temp-1;
+    exit when temp=1;
+  end loop;
+  
+  dbms_output.put_line('factorial of ' || num || ' is: ' || fact);
+end;
+
+--GOTO STATEMENT
+declare
+  i number;
+begin
+  i:=1;
+ 
+  <<repeat>>
+  loop
+    dbms_output.put_line(i);
+    if i=10 then
+      i:= i+10;
+      goto repeat;
+    end if;
+    if i>15 then
+     exit;
+    end if;
+    i:=i+1;
+  end loop;
+end;
+
+--FOR LOOP
+create table edata(Eid number(10), Ename varchar2(20), salary number(20));
+
+insert into edata values(1, 'rohan', 1000);
+insert into edata values(2, 'sameer', 1000);
+insert into edata values(3, 'harsh', 2000);
+insert into edata values(4, 'aditya', 2000);
+insert into edata values(5, 'mrinal', 2000);
+
+declare 
+  sal number;
+begin
+  for id in 1..5
+  loop
+    select salary into sal from edata where Eid = id;
+    sal:= sal+5000;
+    update edata set salary = sal where Eid = id;
+  end loop;
+end;
+
+select * from edata;
+
+--------- EXP - 2.3 (CURSOR) ----------
+
+Create table Studentinfo(Sid number(10), Sname varchar2(20), sub1 number(5), sub2 number(5), sub3 number(5), total number(6));
+
+insert into Studentinfo values(1, 'abhi', 50, 54, 59, 153);
+insert into Studentinfo values(2, 'rohan', 20, 34, 29, 83);
+insert into Studentinfo values(3, 'himanshu', 13, 12, 25, 50);
+insert into Studentinfo values(4, 'aditya', 1, 5, 7, 13);
+insert into Studentinfo values(5, 'harsh', 12, 13, 45, 70);
+insert into Studentinfo values(6, 'mrinal', 2, 90, 23, 115);
+
+begin
+  delete from Studentinfo where Sid = 10;
+  if sql%found then
+   dbms_output.put_line('Row deleted');
+  else
+   dbms_output.put_line('Row not found');
+  end if;
+end;
+
+declare
+  n number;
+begin
+  delete from Studentinfo where total<50;
+  if sql%found then
+    n:= sql%rowcount;
+    dbms_output.put_line(n || ' row deleted');
+  else
+    dbms_output.put_line('no data found');
+  end if;
+end;
+
+declare
+  tmp number;
+  total_marks number := 0;
+  cursor c1(n number) is select total from Studentinfo where total<n;
+begin
+  open c1(100);
+  loop
+    fetch c1 into tmp;
+    exit when c1%notfound;
+    total_marks:= total_marks + tmp;
+  end loop;
+  dbms_output.put_line('Total marks of student having marks less than 100 is ' || total_marks);
+  close c1;
+end;
+
+declare
+  cursor c1 is select Sid, Sname, total from Studentinfo where total<100;
+  rec c1%rowtype;
+begin
+  open c1;
+  loop
+    fetch c1 into rec;
+    exit when c1%notfound;
+
+    dbms_output.put_line('Sid: ' || rec.Sid);
+    dbms_output.put_line('Sname: ' || rec.Sname);
+    dbms_output.put_line('total: ' || rec.total);
+  end loop;
+  close c1;
+end;
+
+---------- EXP 2.4 (VIEW) -----------
+
+Create table Studentinfo(Sid number(10), Sname varchar2(20), sub1 number(5), sub2 number(5), sub3 number(5), total number(6));
+
+insert into Studentinfo values(1, 'abhi', 50, 54, 59, 153);
+insert into Studentinfo values(2, 'rohan', 20, 34, 29, 83);
+insert into Studentinfo values(3, 'himanshu', 13, 12, 25, 50);
+insert into Studentinfo values(4, 'aditya', 1, 5, 7, 13);
+insert into Studentinfo values(5, 'harsh', 12, 13, 45, 70);
+insert into Studentinfo values(6, 'mrinal', 2, 90, 23, 115);
+
+create view studview as
+select Sid, Sname, total
+from Studentinfo
+where total>60;
+
+select * from studview;
+
+insert into studview values(7,'baka', 80);
+
+select * from studview;
+
+update studview
+set Sname = 'bakayaro'
+where Sname = 'baka';
+
+select * from studview;
+
+delete from studview
+where Sid = 7;
+
+select * from studview;
+
+
+--------- EXP 3.1 (PROCEDURE) ----------
+
+Create table emp(Eid number(10), Ename varchar2(20), salary number(5), dept varchar2(6));
+
+insert into emp values(1, 'rohan', 1000, 'cse');
+insert into emp values(2, 'barnwal', 100, 'ece');
+insert into emp values(3, 'sameer', 700, 'cse');
+insert into emp values(4, 'harsh', 200, 'ai');
+insert into emp values(5, 'aditya', 10, 'ai');
+insert into emp values(6, 'himanshu', 1000, 'cse');
+insert into emp values(7, 'mrinal', 500, 'ai');
+
+declare
+  amt number;
+  procedure salary_raise_cse(raise number) as
+  begin
+    update emp set salary = salary + raise where dept = 'cse';
+  end salary_raise_cse;
+begin
+  amt:=:enter_amount;
+  salary_raise_cse(amt);
+end;
+
+select * from emp;
+
+Create Procedure fire_emp(emp_no number) as
+begin
+  delete from emp where Eid=emp_no;
+end fire_emp;
+declare
+  emp_no number;
+begin
+  emp_no:=:enter_emp_no;
+  fire_emp(emp_no);
+end;
+
+select * from emp;
+
+---------- EXP 3.2 (PACKAGES) -----------
+
+Create table emp(Eid number(10), Ename varchar2(20), sal number(5), dno number(6));
+
+insert into emp values(1, 'rohan', 1000, 1);
+insert into emp values(2, 'barnwal', 100, 2);
+insert into emp values(3, 'sameer', 700, 1);
+insert into emp values(4, 'harsh', 200, 3);
+insert into emp values(5, 'aditya', 10, 3);
+insert into emp values(6, 'himanshu', 1000, 1);
+insert into emp values(7, 'mrinal', 500, 3);
+
+--PACKAGE SPECIFICATION
+create package operation as
+  procedure retrieve (Eno number, name out varchar, salary out number);
+  function raise_sal (did number, amt number) return number;
+end operation;
+
+--PACKAGE BODY
+create package body operation as
+  procedure retrieve (Eno number, name out varchar, salary out number) as
+  begin
+    select Ename, sal into name, salary from emp where Eid = Eno;
+    dbms_output.put_line('name: ' ||name ||' salary: ' || salary);
+  end retrieve;
+
+  function raise_sal(did number, amt number) return number as
+  n number;
+  begin
+    update emp set sal = sal+amt where did=dno;
+    n:=sql%rowcount;
+    return n;
+  end raise_sal;
+end operation;
+
+--MAIN CODE
+declare
+  empid number;
+  deptno number;
+  salary number;
+  amt number;
+  no_rows number;
+  empname varchar(30);
+begin
+  empid:=:enter_id;
+  operation.retrieve(empid, empname, salary);
+
+  deptno:=:enter_dept_no;
+  amt:=:enter_increment_amount;
+  no_rows:=operation.raise_sal(deptno, amt);
+  
+  dbms_output.put_line('rows updated: ' || no_rows);
+end;
+
+select * from emp;
+
+----------- EXP 3.3 (TRIGGERS) ------------
+
+Create table emp(Eid number(10), Ename varchar2(20), sal number(5), dno number(6));
+
+insert into emp values(1, 'rohan', 1000, 1);
+insert into emp values(2, 'barnwal', 100, 2);
+insert into emp values(3, 'sameer', 700, 1);
+insert into emp values(4, 'harsh', 200, 3);
+insert into emp values(5, 'aditya', 10, 3);
+insert into emp values(6, 'himanshu', 1000, 1);
+insert into emp values(7, 'mrinal', 500, 3);
+
+create table Audit_info(Eno number(5), name varchar2(20), salary number(10), did number(5), operation varchar(8));
+
+create trigger audit_trail after delete or update on emp for each row
+declare
+  opr varchar2(8);
+begin
+  if updating then
+    opr:='update';
+  end if;
+  if deleting then
+    opr:='delete';
+  end if;
+
+  insert into Audit_info values(:old.Eid, :old.Ename, :old.sal, :old.dno, opr);
+end audit_trail;
+
+update emp set dno = 2 where eid = 4;
+delete from emp where eid = 7;
+select * from emp;
+select * from Audit_info;
+
